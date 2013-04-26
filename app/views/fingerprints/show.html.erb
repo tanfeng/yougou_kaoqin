@@ -1,0 +1,50 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Dept name:</b>
+  <%= @fingerprint.dept_name %>
+</p>
+
+<p>
+  <b>Employee name:</b>
+  <%= @fingerprint.employee_name %>
+</p>
+
+<p>
+  <b>Employee no:</b>
+  <%= @fingerprint.employee_no %>
+</p>
+
+<p>
+  <b>Fp time:</b>
+  <%= @fingerprint.fp_time %>
+</p>
+
+<p>
+  <b>Machine:</b>
+  <%= @fingerprint.machine %>
+</p>
+
+<p>
+  <b>No:</b>
+  <%= @fingerprint.no %>
+</p>
+
+<p>
+  <b>Pattern:</b>
+  <%= @fingerprint.pattern %>
+</p>
+
+<p>
+  <b>Card no:</b>
+  <%= @fingerprint.card_no %>
+</p>
+
+<p>
+  <b>File name:</b>
+  <%= @fingerprint.file_name %>
+</p>
+
+
+<%= link_to 'Edit', edit_fingerprint_path(@fingerprint) %> |
+<%= link_to 'Back', fingerprints_path %>

@@ -1,0 +1,53 @@
+<%= form_for(@fingerprint) do |f| %>
+  <% if @fingerprint.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@fingerprint.errors.count, "error") %> prohibited this fingerprint from being saved:</h2>
+
+      <ul>
+      <% @fingerprint.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :dept_name %><br />
+    <%= f.text_field :dept_name %>
+  </div>
+  <div class="field">
+    <%= f.label :employee_name %><br />
+    <%= f.text_field :employee_name %>
+  </div>
+  <div class="field">
+    <%= f.label :employee_no %><br />
+    <%= f.number_field :employee_no %>
+  </div>
+  <div class="field">
+    <%= f.label :fp_time %><br />
+    <%= f.date_select :fp_time %>
+  </div>
+  <div class="field">
+    <%= f.label :machine %><br />
+    <%= f.number_field :machine %>
+  </div>
+  <div class="field">
+    <%= f.label :no %><br />
+    <%= f.text_field :no %>
+  </div>
+  <div class="field">
+    <%= f.label :pattern %><br />
+    <%= f.text_field :pattern %>
+  </div>
+  <div class="field">
+    <%= f.label :card_no %><br />
+    <%= f.text_field :card_no %>
+  </div>
+  <div class="field">
+    <%= f.label :file_name %><br />
+    <%= f.text_field :file_name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  dept_name: MyString
+  employee_name: MyString
+  employee_no: 1
+  fp_time: 2013-04-26
+  machine: 1
+  no: MyString
+  pattern: MyString
+  card_no: MyString
+  file_name: MyString
+
+two:
+  dept_name: MyString
+  employee_name: MyString
+  employee_no: 1
+  fp_time: 2013-04-26
+  machine: 1
+  no: MyString
+  pattern: MyString
+  card_no: MyString
+  file_name: MyString
