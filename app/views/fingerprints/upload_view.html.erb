@@ -1,0 +1,6 @@
+<%= flash[:info] %>
+<%= form_tag({:action => 'upload_excel'}, :multipart => true) do %>
+    <p><label for="upload_file">浏览文件</label>
+      <%= file_field 'upload', 'datafile' %></p>
+    <%= submit_tag "上传" %>
+<% end %>
