@@ -1,10 +1,10 @@
 class CreateFingerprints < ActiveRecord::Migration
   def change
-    create_table :fingerprints do |t|
+    create_table :fingerprints ,:options => 'CHARSET=utf8' do |t|
       t.string :dept_name
       t.string :employee_name
       t.integer :employee_no
-      t.date :fp_time
+      t.datetime :fp_time
       t.integer :machine
       t.string :no
       t.string :pattern

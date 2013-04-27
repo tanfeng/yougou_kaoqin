@@ -1,4 +1,6 @@
 YougouKaoqin::Application.routes.draw do
+  get "fingerprints/upload_view" => "fingerprints#upload_view"
+  post "fingerprints/upload_excel" => "fingerprints#upload_excel"
   resources :fingerprints
 
 
