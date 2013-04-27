@@ -1,3 +1,4 @@
+<!--
 <h1>Listing fingerprints</h1>
 
 <table>
@@ -29,7 +30,7 @@
     <td><%= fingerprint.file_name %></td>
     <td><%= link_to 'Show', fingerprint %></td>
     <td><%= link_to 'Edit', edit_fingerprint_path(fingerprint) %></td>
-    <td><%= link_to 'Destroy', fingerprint, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+    <td><%= link_to 'Destroy', fingerprint, method: :delete, data: {confirm: 'Are you sure?'} %></td>
   </tr>
 <% end %>
 </table>
@@ -37,3 +38,21 @@
 <br />
 
 <%= link_to 'New Fingerprint', new_fingerprint_path %>
+-->
+<!--
+<script type="text/javascript">
+    Ext.application({
+        name: 'HelloExt',
+        launch: function () {
+            Ext.create('Ext.container.Viewport', {
+                layout: 'fit',
+                items: [
+                    {
+                        title: 'Hello Ext',
+                        html: 'Hello! Welcome to Ext JS.'
+                    }
+                ]
+            });
+        }
+    });
+</script>-->

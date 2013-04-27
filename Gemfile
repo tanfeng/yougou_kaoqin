@@ -8,6 +8,8 @@ gem 'spreadsheet'
 
 gem 'mysql2'
 
+gem 'extjs4-rails'
+
 #gem 'sqlite3'
 
 =begin
