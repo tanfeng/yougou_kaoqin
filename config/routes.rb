@@ -1,4 +1,10 @@
 YougouKaoqin::Application.routes.draw do
+  #excel about
+  get "excel" => "excel#index"
+  get "excel/index" => "excel#index"
+  post "excel/upload_excel" => "excel#upload_excel"
+
+
   get "fingerprints/upload_view" => "fingerprints#upload_view"
   post "fingerprints/upload_excel" => "fingerprints#upload_excel"
   resources :fingerprints
