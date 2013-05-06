@@ -5,9 +5,11 @@ YougouKaoqin::Application.routes.draw do
   post "excel/export" => "excel#export"
   post "excel/upload_excel" => "excel#upload_excel"
 
+  get "fingerprints/work_day" => "fingerprints#work_day"
+  post "fingerprints/work_day" => "fingerprints#work_day"
+  get "fingerprints/non_work_day" => "fingerprints#non_work_day"
+  post "fingerprints/non_work_day" => "fingerprints#non_work_day"
 
-  get "fingerprints/upload_view" => "fingerprints#upload_view"
-  post "fingerprints/upload_excel" => "fingerprints#upload_excel"
   resources :fingerprints
 
 

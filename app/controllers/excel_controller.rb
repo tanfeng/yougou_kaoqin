@@ -81,9 +81,10 @@ class ExcelController < ApplicationController
           end
         end
       end
-
-      sql = "INSERT INTO fingerprints (card_no,  dept_name, employee_name, employee_no, file_name, fp_time, machine, no, pattern , created_at , updated_at) VALUES #{values.join(',')} "
-      ActiveRecord::Base.connection.execute(sql)
+      if values.length >0
+        sql = "INSERT INTO fingerprints (card_no,  dept_name, employee_name, employee_no, file_name, fp_time, machine, no, pattern , created_at , updated_at) VALUES #{values.join(',')} "
+        ActiveRecord::Base.connection.execute(sql)
+      end
 
     rescue Ole::Storage::FormatError
       flash[:alert] = 'excel格式不正确，请打开后另存为副本再进行上传！'
