@@ -1,5 +1,5 @@
 
-<h1>查询周末加班</h1>
+<h1>查询周末加班（请自行排除国家的法定假日调休）</h1>
 
 <%= form_tag({:controller =>"fingerprints",:action => "non_work_day"}, :method => "post") do %>
     <%= label_tag(:employee_name, "Search for:") %>
