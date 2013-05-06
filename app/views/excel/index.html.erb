@@ -1,6 +1,14 @@
+<%= form_tag({:action => 'export'}, :multipart => false) do %>
+    <label for="fingerprint_fp_time">选择要导出的月份:</label><%=select :fingerprint,:fp_time,@all_month.collect{|t| [t[0], t[0]]}, {:include_blank=>false,:selected=>0}%>
+    <%= submit_tag "导出" %>
+<% end %>
+
 <%= flash[:info] %>
 <%= form_tag({:action => 'upload_excel'}, :multipart => true) do %>
     <p><label for="upload_file">浏览文件</label>
       <%= file_field 'upload', 'datafile' %></p>
     <%= submit_tag "上传" %>
 <% end %>
+
+<hr>
+'<%= ENV["RAILS_RELATIVE_URL_ROOT"] %>/upload/2013-4_all.xls'

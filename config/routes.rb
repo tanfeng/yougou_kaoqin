@@ -1,7 +1,8 @@
 YougouKaoqin::Application.routes.draw do
   #excel about
-  get "excel" => "excel#index"
   get "excel/index" => "excel#index"
+  get "excel/export" => "excel#export"
+  post "excel/export" => "excel#export"
   post "excel/upload_excel" => "excel#upload_excel"
 
 
