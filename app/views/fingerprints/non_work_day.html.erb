@@ -1,5 +1,5 @@
 
-<h1>Listing fingerprints</h1>
+<h1>查询周末加班</h1>
 
 <%= form_tag({:controller =>"fingerprints",:action => "non_work_day"}, :method => "post") do %>
     <%= label_tag(:employee_name, "Search for:") %>
@@ -18,9 +18,7 @@
     <th>No</th>
     <th>Pattern</th>
     <th>Card no</th>
-    <th></th>
-    <th></th>
-    <th></th>
+
   </tr>
 
 <% @fingerprints.each do |fingerprint| %>
@@ -33,6 +31,7 @@
     <td><%= fingerprint.no %></td>
     <td><%= fingerprint.pattern %></td>
     <td><%= fingerprint.card_no %></td>
+
      </tr>
 <% end %>
 </table>

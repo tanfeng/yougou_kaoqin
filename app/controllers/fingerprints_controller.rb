@@ -5,7 +5,7 @@ class FingerprintsController < ApplicationController
   # GET /fingerprints
   # GET /fingerprints.json
   def index
-    @fingerprints = Fingerprint.find_by_sql("select * from fingerprints where date(fp_time)='2013-04-01' and employee_name='闵晓荣' order by fp_time asc ")
+    @fingerprints =[] #Fingerprint.find_by_sql("select * from fingerprints where date(fp_time)='2013-04-01' and employee_name='闵晓荣' order by fp_time asc ")
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @fingerprints }
