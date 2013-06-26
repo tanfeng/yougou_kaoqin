@@ -180,6 +180,23 @@ class ExcelController < ApplicationController
           else
             first = '√'
           end
+          #未打卡的情况：
+          #1.早晨9点之前打卡  下午 17:59:00之前打卡
+          #2.早晨09:01:00l点之后打卡  下午  18:29:00之前打卡
+
+          if(last == '' or DateTime.parse(last.to_s) < morning_sign_2)
+            last = "未"
+            row.set_format(down, format)
+          elsif(DateTime.parse(tmp1.to_s) < morning_sign_1 and afternoon_sign_1 < DateTime.parse(tmp2.to_s))
+            last = '√'
+          elsif (DateTime.parse(tmp1.to_s) < morning_sign_2 and afternoon_sign_2 < DateTime.parse(tmp2.to_s))
+            last = '√'
+          else
+            last = last.strftime("%Y-%m-%d %H:%M:%S")
+            row.set_format(down, format)
+          end
+
+=begin
 
           if (last == '' or DateTime.parse(last.to_s) < morning_sign_1 or DateTime.parse(last.to_s) < morning_sign_2 or (DateTime.parse(tmp1.to_s) < morning_sign_2 and DateTime.parse(tmp1.to_s) > DateTime.parse(last.to_s)))
             last = "未"
@@ -194,6 +211,8 @@ class ExcelController < ApplicationController
           else
             last = '√'
           end
+=end
+
           row[up, 2] = first
           row[down, 2] = last
         end
