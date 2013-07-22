@@ -134,7 +134,7 @@ class ExcelController < ApplicationController
     end
 
     year_month = month <10 ? "#{year}-0#{month}" : "#{year}-#{month}"
-    @fp.get_employees("2013-04").each_with_index do |item, index_1|
+    @fp.get_employees("#{year_month}").each_with_index do |item, index_1|
       row = sheet1.row(index_1+2)
       name = item.employee_name
       (0..total_days).each_with_index do |day, index|
@@ -142,15 +142,67 @@ class ExcelController < ApplicationController
         if index==0
           row[0, 2] = name
         else
-          morning_sign_1 = DateTime.parse("#{year}-#{month}-#{day} 09:01:00l")
+          morning_sign_1 = DateTime.parse("#{year}-#{month}-#{day} 09:01:00 +0800")
           morning_sign_2 = DateTime.parse("#{year}-#{month}-#{day} 09:31:00 +0800")
 
           afternoon_sign_1 = DateTime.parse("#{year}-#{month}-#{day} 17:59:00 +0800")
           afternoon_sign_2 = DateTime.parse("#{year}-#{month}-#{day} 18:29:00 +0800")
           date = "#{year}-#{month}-#{day}"
           result = @fp.get_fp_by_day("#{date}", name)
+
+          up = (day-1)*2 +1
+          down =(day*2)
+          up_status = 'not setting'
+          down_status = 'not setting'
+          #上班在9:30以后的都是不正常的
+          uptime =nil
+          puts result.count > 0
+         if(result.count > 0)
+           uptime =  result.first.fp_time
+            upsign = result.first.fp_time
+            if(DateTime.parse(upsign.to_s) >afternoon_sign_1)    #说明上班未打卡
+              up_status = "未"
+              row.set_format(up, format)
+            elsif(DateTime.parse(upsign.to_s) >morning_sign_2) #说明打卡在9点半之后
+              up_status = upsign.strftime("%Y-%m-%d %H:%M:%S")
+              row.set_format(up, format)
+            else
+              up_status ="√"
+            end
+         else
+           row.set_format(up, format)
+           up_status = '未'
+         end
+
+        #18点以前打卡都不正确
+        if(result.count > 1 )
+          downsign = result.last.fp_time
+          if(DateTime.parse(downsign.to_s) < afternoon_sign_1)  #18点之前打卡
+            down_status = downsign.strftime("%Y-%m-%d %H:%M:%S")
+            row.set_format(down, format)
+          elsif(DateTime.parse(downsign.to_s) > afternoon_sign_2) #18点之后打卡
+            down_status = "√"
+          elsif(DateTime.parse(uptime.to_s) < morning_sign_1 and (DateTime.parse(downsign.to_s) > afternoon_sign_1))
+            down_status = "√"
+          else
+            #down_status="#{DateTime.parse(uptime.to_s)}---#{DateTime.parse(uptime.to_s) < morning_sign_1}....#{DateTime.parse(downsign.to_s) > afternoon_sign_1}"
+            down_status = downsign.strftime("%Y-%m-%d %H:%M:%S")
+            row.set_format(down, format)
+          end
+        else
+          if uptime and  (DateTime.parse(uptime.to_s) > afternoon_sign_2)
+            down_status = "√"
+          else
+            down_status = '未'
+            row.set_format(down, format)
+          end
+        end
+=begin
+
           first = ""
+
           last = ""
+
           if result
             if result.first
               first = result.first.fp_time
@@ -160,41 +212,44 @@ class ExcelController < ApplicationController
             end
           end
 
-          tmp1 = Time.at(first.to_i) + 3600
+          puts "first=#{first},last=#{last}"
+          tmp1 = Time.at(first.to_i)
           if first == last
             tmp1 = first
           end
 
 
           tmp2 = first
-          up = (day-1)*2 +1
-          down =(day*2)
 
+          up_status = 'up_status'
           if first == '' or DateTime.parse(first.to_s) >afternoon_sign_1 or DateTime.parse(first.to_s) > afternoon_sign_2
-            first = "未"
+            up_status = "未"
             row.set_format(up, format)
           elsif DateTime.parse(first.to_s) > morning_sign_2
             puts "#{DateTime.parse(first.to_s)}--#{morning_sign_2}"
-            first = first.strftime("%Y-%m-%d %H:%M:%S")
             row.set_format(up, format)
           else
-            first = '√'
+            up_status = '√'
           end
           #未打卡的情况：
           #1.早晨9点之前打卡  下午 17:59:00之前打卡
           #2.早晨09:01:00l点之后打卡  下午  18:29:00之前打卡
 
-          if(last == '' or DateTime.parse(last.to_s) < morning_sign_2)
-            last = "未"
+         puts "tmp1=#{tmp1},tmp2=#{tmp2}"
+          down_status = "down_status"
+          if(last == '' or (DateTime.parse(last.to_s) < morning_sign_2))
+            down_status = "未"
             row.set_format(down, format)
           elsif(DateTime.parse(tmp1.to_s) < morning_sign_1 and afternoon_sign_1 < DateTime.parse(tmp2.to_s))
-            last = '√'
+            down_status = '√'
           elsif (DateTime.parse(tmp1.to_s) < morning_sign_2 and afternoon_sign_2 < DateTime.parse(tmp2.to_s))
-            last = '√'
+            down_status = '√'
           else
-            last = last.strftime("%Y-%m-%d %H:%M:%S")
+            puts "===============*========================="
+            down_status = last.strftime("%Y-%m-%d %H:%M:%S")
             row.set_format(down, format)
           end
+=end
 
 =begin
 
@@ -213,8 +268,10 @@ class ExcelController < ApplicationController
           end
 =end
 
-          row[up, 2] = first
-          row[down, 2] = last
+
+          row[up, 2] = up_status
+          row[down, 2] = down_status
+
         end
       end
     end
