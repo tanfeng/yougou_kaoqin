@@ -91,7 +91,7 @@ class ExcelController < ApplicationController
       redirect_to :action => :index and return
     end
 
-    redirect_to :action => :upload_view and return
+    redirect_to :action => :index and return
   end
 
 
