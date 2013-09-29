@@ -57,7 +57,7 @@ class ExcelController < ApplicationController
       #puts sheet.count
       values = []
       if sheet
-        sheet.each do |row|
+        sheet.each_with_index do |row,index|
           finger_print = Fingerprint.new
           finger_print.dept_name = row[0]
           finger_print.employee_name = row[1]
@@ -79,12 +79,15 @@ class ExcelController < ApplicationController
           else
             puts "exist record [ #{row} ] will not be insert into database repeat !"
           end
+
+          if (index % 100 ==0 or index == (sheet.count-1)) and  values.length >0
+            sql = "INSERT INTO fingerprints (card_no,  dept_name, employee_name, employee_no, file_name, fp_time, machine, no, pattern , created_at , updated_at) VALUES #{values.join(',')} "
+            ActiveRecord::Base.connection.execute(sql)
+            values.clear
+          end
         end
       end
-      if values.length >0
-        sql = "INSERT INTO fingerprints (card_no,  dept_name, employee_name, employee_no, file_name, fp_time, machine, no, pattern , created_at , updated_at) VALUES #{values.join(',')} "
-        ActiveRecord::Base.connection.execute(sql)
-      end
+
 
     rescue Ole::Storage::FormatError
       flash[:alert] = 'excel格式不正确，请打开后另存为副本再进行上传！'
