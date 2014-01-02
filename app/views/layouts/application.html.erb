@@ -2,12 +2,14 @@
 <html>
 <head>
   <title>YougouKaoqin</title>
+  <%= stylesheet_link_tag 'extjs4-rails/ext-all' %>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag 'extjs4-rails/ext-all' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<p style="color: red"><%= flash[:alert] %></p>
 <%= yield %>
 
 </body>

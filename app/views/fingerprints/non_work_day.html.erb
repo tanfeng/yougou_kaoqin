@@ -1,0 +1,41 @@
+
+<h1>查询周末加班（请自行排除国家的法定假日调休）</h1>
+
+<%= form_tag({:controller =>"fingerprints",:action => "non_work_day"}, :method => "post") do %>
+    <%= label_tag(:employee_name, "Search for:") %>
+    <%= text_field_tag(:employee_name,@employee_name)%>
+    <%= submit_tag("Search") %>
+<% end %>
+
+
+<table border="10px">
+  <tr>
+    <th>Dept name</th>
+    <th>Employee name</th>
+    <th>Employee no</th>
+    <th>Fp time</th>
+    <th>Machine</th>
+    <th>No</th>
+    <th>Pattern</th>
+    <th>Card no</th>
+
+  </tr>
+
+<% @fingerprints.each do |fingerprint| %>
+  <tr>
+    <td><%= fingerprint.dept_name %></td>
+    <td><%= fingerprint.employee_name %></td>
+    <td><%= fingerprint.employee_no %></td>
+    <td><%= fingerprint.fp_time %></td>
+    <td><%= fingerprint.machine %></td>
+    <td><%= fingerprint.no %></td>
+    <td><%= fingerprint.pattern %></td>
+    <td><%= fingerprint.card_no %></td>
+
+     </tr>
+<% end %>
+</table>
+
+<br />
+
+

@@ -4,12 +4,19 @@ gem 'rails', '3.2.12'
 
 gem 'bootstrap-sass', '2.3.0'
 
+gem 'spreadsheet'
+
+gem 'mysql2'
+
+gem 'extjs4-rails'
 
 #gem 'sqlite3'
 
+=begin
 group :development do
 	gem 'sqlite3','1.3.5'
 end
+=end
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.5'

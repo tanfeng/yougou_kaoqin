@@ -1,4 +1,18 @@
 YougouKaoqin::Application.routes.draw do
+  #excel about
+  get "excel/index" => "excel#index"
+  get "excel/export" => "excel#export"
+  post "excel/export" => "excel#export"
+  post "excel/upload_excel" => "excel#upload_excel"
+
+  get "fingerprints/work_day" => "fingerprints#work_day"
+  post "fingerprints/work_day" => "fingerprints#work_day"
+  get "fingerprints/non_work_day" => "fingerprints#non_work_day"
+  post "fingerprints/non_work_day" => "fingerprints#non_work_day"
+
+  resources :fingerprints
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
